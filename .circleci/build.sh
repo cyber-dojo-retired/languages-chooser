@@ -1,27 +1,19 @@
 #!/bin/bash
 set -ev
 
-readonly MY_DIR="$( cd "$( dirname "${0}" )" && pwd )"
-
-readonly SCRIPT_NAME=cyber_dojo_start_points_create.sh
-readonly SCRIPT_URL=https://raw.githubusercontent.com/cyber-dojo/start-points-base/master/${SCRIPT_NAME}
-
-readonly LANGUAGE_LIST_FILENAME=languages_list_all
-readonly LANGUAGE_LIST_URL=https://raw.githubusercontent.com/cyber-dojo/languages/master/${LANGUAGE_LIST_FILENAME}
-
+readonly GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
+readonly CREATE_IMAGE_SCRIPT=cyber_dojo_start_points_create.sh
 readonly IMAGE_NAME=cyberdojo/languages
-readonly TMP_DIR=$(mktemp -d /tmp/cyber-dojo-start-points.XXXXXXXXX)
+readonly TMP_DIR=$(mktemp -d /tmp/cyber-dojo-languages.XXXXXXXXX)
 
 cleanup() { rm -rf ${TMP_DIR} > /dev/null; }
 trap cleanup EXIT
 
 cd ${TMP_DIR}
-curl -O ${SCRIPT_URL}
-chmod 700 ./${SCRIPT_NAME}
-curl -O ${LANGUAGE_LIST_URL}
-readonly LANGUAGE_LIST="$(< ./${LANGUAGE_LIST_FILENAME})"
+curl -O "${GITHUB_ORG}/start-points-base/master/${CREATE_IMAGE_SCRIPT}"
+chmod 700 ./${CREATE_IMAGE_SCRIPT}
 
-./${SCRIPT_NAME} \
+./${CREATE_IMAGE_SCRIPT} \
     ${IMAGE_NAME} \
     --languages \
-      "${LANGUAGE_LIST}" \
+      "$(curl -O "${GITHUB_ORG}/languages/master/languages_list_all")"
