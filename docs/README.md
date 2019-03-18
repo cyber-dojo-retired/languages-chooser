@@ -7,7 +7,7 @@ Not live yet. Working towards making it live on https://beta.cyber-dojo.org
 Specifies the start-points used to create the cyberdojo/languages Docker image.
 
 ```bash
-$ FILENAME=languages_list
+$ FILENAME=languages_list_all
 $ URL=https://raw.githubusercontent.com/cyber-dojo/languages/master/${FILENAME}
 $ curl -O ${URL}
 $ LANGUAGES_URLS="$(< ./${FILENAME})"
