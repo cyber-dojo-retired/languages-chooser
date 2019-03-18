@@ -16,3 +16,8 @@ chmod 700 ./${CREATE_IMAGE_SCRIPT}
     cyberdojo/languages \
       --languages \
         "$(curl --silent "${GITHUB_ORG}/languages/master/languages_list_all")"
+
+./${CREATE_IMAGE_SCRIPT} \
+    cyberdojo/languages-common \
+      --languages \
+        "$(curl --silent "${GITHUB_ORG}/languages/master/languages_list_common")"
