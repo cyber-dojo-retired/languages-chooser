@@ -18,7 +18,7 @@ jobs:
           name: push image to dockerhub
           command: |
             set -ev
-            readonly image=cyberdojo/start-points
+            readonly image=cyberdojo/languages
             docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
             docker tag  ${image}:latest ${image}:beta
             echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
