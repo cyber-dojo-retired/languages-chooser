@@ -11,7 +11,7 @@ Specifies the start-points used to create the cyberdojo/languages Docker image.
 $ GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
 $ IMAGE_NAME=cyberdojo/languages
 $
-$ ./cyber-dojo start-points create \
+$ ./cyber-dojo start-point create \
     ${IMAGE_NAME} \
       --languages \
         "$(curl --silent "${GITHUB_ORG}/languages/master/languages_list_all")"
