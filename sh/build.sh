@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ev
 
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+readonly SHA_VALUE=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
+
 readonly GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
 readonly REPO_NAME=starter-base
 #readonly REPO_NAME=commander
@@ -14,17 +17,20 @@ cd ${TMP_DIR}
 curl -O --silent "${GITHUB_ORG}/${REPO_NAME}/master/${SCRIPT_NAME}"
 chmod 700 ./${SCRIPT_NAME}
 
-./${SCRIPT_NAME} start-point create \
+SHA="${SHA_VALUE}" \
+  ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages \
       --languages \
         $(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")
 
-./${SCRIPT_NAME} start-point create \
+SHA="${SHA_VALUE}" \
+  ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages-common \
       --languages \
         $(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")
 
-./${SCRIPT_NAME} start-point create \
+SHA="${SHA_VALUE}" \
+  ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages-small \
       --languages \
         $(curl --silent "${GITHUB_ORG}/languages/master/url_list/small")
