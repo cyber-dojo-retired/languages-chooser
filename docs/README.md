@@ -14,10 +14,10 @@ $
 $ ./cyber-dojo start-point create \
     ${IMAGE_NAME} \
       --languages \
-        "$(curl --silent "${GITHUB_ORG}/languages/master/languages_list_all")"
+        "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")"
 
 $ ./cyber-dojo up \
-    --languages=${IMAGE_NAME}
+    --languages=${IMAGE_NAME}:latest
 ```
 
 - - - -
