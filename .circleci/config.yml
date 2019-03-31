@@ -32,6 +32,13 @@ jobs:
             echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
             docker push ${image}:${CIRCLE_SHA1:0:7}
             docker push ${image}:beta
+            #
+            image=cyberdojo/languages-small
+            docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
+            docker tag  ${image}:latest ${image}:beta
+            echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+            docker push ${image}:${CIRCLE_SHA1:0:7}
+            docker push ${image}:beta
 
   deploy-image-to-beta:
     docker:

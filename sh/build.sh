@@ -23,3 +23,8 @@ chmod 700 ./${SCRIPT_NAME}
     cyberdojo/languages-common \
       --languages \
         "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")"
+
+./${SCRIPT_NAME} start-point create \
+    cyberdojo/languages-small \
+      --languages \
+        "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/small")"
