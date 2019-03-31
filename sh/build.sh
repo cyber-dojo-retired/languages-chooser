@@ -17,14 +17,14 @@ chmod 700 ./${SCRIPT_NAME}
 ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages \
       --languages \
-        "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")"
+        $(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")
 
 ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages-common \
       --languages \
-        "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")"
+        $(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")
 
 ./${SCRIPT_NAME} start-point create \
     cyberdojo/languages-small \
       --languages \
-        "$(curl --silent "${GITHUB_ORG}/languages/master/url_list/small")"
+        $(curl --silent "${GITHUB_ORG}/languages/master/url_list/small")
