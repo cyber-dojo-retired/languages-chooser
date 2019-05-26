@@ -22,9 +22,6 @@ $ ./cyber-dojo start-point create \
     cyberdojo/languages-common \
       --languages \
         $(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")
-
-$ ./cyber-dojo up \
-    --languages=cyberdojo/languages-common
 ```
 
 - - - -
