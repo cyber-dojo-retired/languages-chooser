@@ -14,7 +14,7 @@ cleanup() { rm -rf ${TMP_DIR} > /dev/null; }
 trap cleanup EXIT
 
 cd ${TMP_DIR}
-curl -O --silent "${GITHUB_ORG}/${REPO_NAME}/master/${SCRIPT_NAME}"
+curl -O --silent --fail "${GITHUB_ORG}/${REPO_NAME}/master/${SCRIPT_NAME}"
 chmod 700 ./${SCRIPT_NAME}
 
 SHA="${SHA_VALUE}" \

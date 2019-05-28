@@ -3,25 +3,34 @@
 
 [![CircleCI](https://circleci.com/gh/cyber-dojo/languages.svg?style=svg)](https://circleci.com/gh/cyber-dojo/languages)
 
-Specifies the start-points used to create the
-cyberdojo/languages-common and
-cyberdojo/languages-all start-point images.
+Specifies the start-points used to create the following start-point images
+* [cyberdojo/languages-all](https://hub.docker.com/r/cyberdojo/languages-all)
+* [cyberdojo/languages-common](https://hub.docker.com/r/cyberdojo/languages-common)
+* [cyberdojo/languages-small](https://hub.docker.com/r/cyberdojo/languages-small)
 
 ```bash
+$ set -e
 $ GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
-$
-$ curl --silent "${GITHUB_ORG}/commander/master/cyber-dojo" -o cyber-dojo
+$ curl --silent --fail "${GITHUB_ORG}/commander/master/cyber-dojo" -o cyber-dojo
 $ chmod 700 cyber-dojo
 $
+$ IMAGE_NAME=cyberdojo/languages-all
 $ ./cyber-dojo start-point create \
-    cyberdojo/languages-all \
-      --languages \
-        $(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")
+     "${IMAGE_NAME}" \
+        --languages \
+          $(curl --silent "${GITHUB_ORG}/languages/master/url_list/all")
 $
+$ IMAGE_NAME=cyberdojo/languages-common
 $ ./cyber-dojo start-point create \
-    cyberdojo/languages-common \
-      --languages \
-        $(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")
+     "${IMAGE_NAME}"\
+        --languages \
+          $(curl --silent "${GITHUB_ORG}/languages/master/url_list/common")
+$
+$ IMAGE_NAME=cyberdojo/languages-small
+$ ./cyber-dojo start-point create \
+     "${IMAGE_NAME}" \
+        --languages \
+          $(curl --silent "${GITHUB_ORG}/languages/master/url_list/small")
 ```
 
 - - - -
