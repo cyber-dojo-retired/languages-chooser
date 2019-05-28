@@ -9,29 +9,30 @@ Specifies the start-points used to create the following start-point images
 * [cyberdojo/languages-small](https://hub.docker.com/r/cyberdojo/languages-small)
 
 ```bash
-$ set -e
-$ GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
-$ LANGUAGES_LIST="${GITHUB_ORG}/languages/master/url_list"
-$ curl --silent --fail "${GITHUB_ORG}/commander/master/cyber-dojo" -o cyber-dojo
-$ chmod 700 cyber-dojo
-$
-$ IMAGE_NAME=cyberdojo/languages-all
-$ ./cyber-dojo start-point create \
-     "${IMAGE_NAME}" \
-        --languages \
-          $(curl --silent --fail "${LANGUAGES_LIST}/all")
-$
-$ IMAGE_NAME=cyberdojo/languages-common
-$ ./cyber-dojo start-point create \
-     "${IMAGE_NAME}"\
-        --languages \
-          $(curl --silent --fail "${LANGUAGES_LIST}/common")
-$
-$ IMAGE_NAME=cyberdojo/languages-small
-$ ./cyber-dojo start-point create \
-     "${IMAGE_NAME}" \
-        --languages \
-          $(curl --silent --fail "${LANGUAGES_LIST}/small")
+#!/bin/bash
+set -e
+GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
+LANGUAGES_LIST="${GITHUB_ORG}/languages/master/url_list"
+curl --silent --fail "${GITHUB_ORG}/commander/master/cyber-dojo" -o cyber-dojo
+chmod 700 cyber-dojo
+
+IMAGE_NAME=cyberdojo/languages-all
+./cyber-dojo start-point create \
+   "${IMAGE_NAME}" \
+      --languages \
+        $(curl --silent --fail "${LANGUAGES_LIST}/all")
+
+IMAGE_NAME=cyberdojo/languages-common
+./cyber-dojo start-point create \
+   "${IMAGE_NAME}"\
+      --languages \
+        $(curl --silent --fail "${LANGUAGES_LIST}/common")
+
+IMAGE_NAME=cyberdojo/languages-small
+./cyber-dojo start-point create \
+   "${IMAGE_NAME}" \
+      --languages \
+        $(curl --silent --fail "${LANGUAGES_LIST}/small")
 ```
 
 - - - -
