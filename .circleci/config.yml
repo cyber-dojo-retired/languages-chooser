@@ -12,12 +12,12 @@ jobs:
       - run:
           name: build image
           command: |
-            set -ev
+            set -e
             ./pipe_build_up_test.sh
       - run:
           name: publish image on dockerhub
           command: |
-            set -ev
+            set -e
             #
             image=cyberdojo/languages
             docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
@@ -50,7 +50,7 @@ jobs:
       - run:
           name: authenticate with gcloud and deploy with helm
           command: |
-            set -ev
+            set -e
             echo $GCP_K8S_CREDENTIALS > /gcp/gcp-credentials.json
             gcloud auth activate-service-account "$SERVICE_ACCOUNT" --key-file=/gcp/gcp-credentials.json
             gcloud container clusters get-credentials "$CLUSTER" --zone "$ZONE" --project "$PROJECT"
