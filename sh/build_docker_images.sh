@@ -19,7 +19,7 @@ chmod 700 ./${SCRIPT_NAME}
 
 SHA="${SHA_VALUE}" \
   ./${SCRIPT_NAME} start-point create \
-    cyberdojo/languages \
+    cyberdojo/languages-all \
       --languages \
         $(curl --silent --fail "${LANGUAGES_LIST}/all")
 
