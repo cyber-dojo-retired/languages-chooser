@@ -2,8 +2,7 @@ version: 2
 jobs:
   build-push-image:
 
-    machine:
-      enabled: true
+    machine: true
 
     working_directory: ~/repo
 
