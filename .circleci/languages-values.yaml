@@ -2,21 +2,18 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# app name
 fullnameOverride: "languages"
 
-# deployment spec
 replicaCount: 1
 
+service:
+  port: 4524
 
-volumes: 
+volumes:
   - name: languages-tmp-dir
     emptyDir: {}
 
-
-# containers
-# provide default values that you HAVE to overwrite in your values.yaml file
-containers: 
+containers:
   - name: languages
     image: cyberdojo/languages-all
     tag: "d996783"
@@ -26,31 +23,22 @@ containers:
       - name: languages-tmp-dir
         mountPath: /tmp
         readOnly: false
-
-    resources: 
+    resources:
       limits:
-       memory: 32Mi
+        memory: 32Mi
       requests:
-       memory: 32Mi
-    # livenessProbe:
-    #   path: /health
-    #   port: 80
-    # readinessProbe:
-    #   path: /health
-    #   port: 80
+        memory: 32Mi
+    livenessProbe:
+       path: /sha
+       port: 4524
+    readinessProbe:
+       path: /ready?
+       port: 4524
 
 envFromSecret: {}
- 
 
 nodeSelector: {}
 
 affinity: {}
 
 tolerations: []
-
-# service
-service: 
-  port: 4524  
-
-  
-  
