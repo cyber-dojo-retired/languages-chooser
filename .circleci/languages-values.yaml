@@ -16,7 +16,7 @@ volumes:
 containers:
   - name: languages
     image: cyberdojo/languages-all
-    tag: "d996783"
+    tag: ""
     securityContext:
       readOnlyRootFilesystem: true
     volumeMounts:
