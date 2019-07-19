@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build-push-image:
+  build-image:
 
     machine: true
 
@@ -42,7 +42,7 @@ jobs:
             docker push ${image}:beta
             docker push ${image}:latest
 
-  deploy-image-to-beta:
+  deploy-to-beta:
     docker:
       - image: cyberdojo/gcloud-kubectl-helm
     steps:
@@ -78,16 +78,16 @@ workflows:
   version: 2
   build:
     jobs:
-      - build-push-image:
+      - build-image:
           context: cyberdojo-context
           filters:
             branches:
               only:
                   - master
-      - deploy-image-to-beta:
+      - deploy-to-beta:
           context: cyberdojo-context
           requires:
-            - build-push-image
+            - build-image
       - approve-to-prod:
           type: approval
           requires:
