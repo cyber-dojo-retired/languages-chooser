@@ -9,6 +9,7 @@ Specifies the start-points used to create the following start-point images
 ```bash
 #!/bin/bash
 set -e
+
 SCRIPT=cyber-dojo
 GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
 LANGUAGES_LIST="${GITHUB_ORG}/languages/master/url_list"
