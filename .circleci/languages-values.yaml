@@ -11,7 +11,9 @@ service:
 
 volumes:
   - name: languages-tmp-dir
-    emptyDir: {}
+    emptyDir:
+      medium: Memory
+      sizeLimit: "32Mi"  
 
 containers:
   - name: languages
