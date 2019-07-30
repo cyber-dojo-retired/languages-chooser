@@ -4,7 +4,7 @@
 
 fullnameOverride: "languages"
 
-replicaCount: 1
+replicaCount: 3
 
 service:
   port: 4524
@@ -16,7 +16,6 @@ volumes:
 containers:
   - name: languages
     image: cyberdojo/languages-all
-    tag: ""
     securityContext:
       readOnlyRootFilesystem: true
     volumeMounts:
@@ -25,15 +24,15 @@ containers:
         readOnly: false
     resources:
       limits:
-        memory: 32Mi
+        memory: 16Mi
       requests:
-        memory: 32Mi
-    #livenessProbe:
-    #   path: /sha
-    #   port: 4524
-    #readinessProbe:
-    #   path: /ready?
-    #   port: 4524
+        memory: 16Mi
+      livenessProbe:
+        path: /sha
+        port: 4524
+      readinessProbe:
+        path: /ready?
+        port: 4524
 
 envFromSecret: {}
 
