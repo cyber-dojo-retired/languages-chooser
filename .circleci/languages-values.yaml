@@ -13,7 +13,7 @@ volumes:
   - name: languages-tmp-dir
     emptyDir:
       medium: Memory
-      sizeLimit: "32Mi"  
+      sizeLimit: "16Mi"
 
 containers:
   - name: languages
