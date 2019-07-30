@@ -1,21 +1,6 @@
 #!/bin/bash
 set -e
 
-# Use this when you need to recreate the cyberdojo/languages:latest
-# image locally. Eg after making a local change to starter-base
-# you cannot update versioner to its new BASE_SHA because
-# there is a versioner test that checks the languages image named
-# in the .env file has a matching BASE_SHA env-var.
-# ./local_build_all.sh
-# SHA=$(docker run --rm cyberdojo/languages:latest sh -c 'echo $SHA')
-# TAG=${SHA:0:7}
-# docker tag cyberdojo/languages:latest cyberdojo/languages:${TAG}
-# docker push cyberdojo/languages:latest
-# docker push cyberdojo/languages:${TAG}
-#
-# and now you can update versioner's .env to
-# CYBER_DOJO_LANGUAGES=cyberdojo/languages-common:${TAG}
-
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 readonly SHA_VALUE=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
 
