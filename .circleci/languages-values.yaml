@@ -17,6 +17,8 @@ volumes:
 
 containers:
   - name: languages
+    env:
+      PROMETHEUS_COLLECTOR_METRICS_PREFIX: "languages"  
     image: cyberdojo/languages-all
     securityContext:
       readOnlyRootFilesystem: true
