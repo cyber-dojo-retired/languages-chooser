@@ -19,6 +19,8 @@ containers:
   - name: languages
     image: cyberdojo/languages-all
     securityContext:
+      runAsUser: 65534 # nobody
+      fsGroup: 65534 # nobody
       readOnlyRootFilesystem: true
     volumeMounts:
       - name: languages-tmp-dir
