@@ -9,38 +9,41 @@ jobs:
     steps:
       - checkout
       - run:
-          name: build image
+          name: Build tested docker image
           command: |
             set -e
             ./pipe_build_up_test.sh
       - run:
-          name: publish image on dockerhub
+          name: Tag docker image
           command: |
             set -e
-            #
-            image=cyberdojo/languages-all
-            docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
-            docker tag  ${image}:latest ${image}:beta
+            IMAGE=cyberdojo/languages-all
+            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+            IMAGE=cyberdojo/languages-common
+            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+            IMAGE=cyberdojo/languages-small
+            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+
+      - run:
+          name: Publish tagged docker image on dockerhub
+          command: |
+            set -e
             echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-            docker push ${image}:${CIRCLE_SHA1:0:7}
-            docker push ${image}:beta
-            docker push ${image}:latest
             #
-            image=cyberdojo/languages-common
-            docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
-            docker tag  ${image}:latest ${image}:beta
-            echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-            docker push ${image}:${CIRCLE_SHA1:0:7}
-            docker push ${image}:beta
-            docker push ${image}:latest
+            IMAGE=cyberdojo/languages-all
+            docker push ${IMAGE}:${CIRCLE_SHA1:0:7}
+            docker push ${IMAGE}:latest
             #
-            image=cyberdojo/languages-small
-            docker tag  ${image}:latest ${image}:${CIRCLE_SHA1:0:7}
-            docker tag  ${image}:latest ${image}:beta
+            IMAGE=cyberdojo/languages-common
+            docker push ${IMAGE}:${CIRCLE_SHA1:0:7}
+            docker push ${IMAGE}:latest
+            #
+            IMAGE=cyberdojo/languages-small
             echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-            docker push ${image}:${CIRCLE_SHA1:0:7}
-            docker push ${image}:beta
-            docker push ${image}:latest
+            docker push ${IMAGE}:${CIRCLE_SHA1:0:7}
+            docker push ${IMAGE}:latest
+            #
+            docker logout
 
   deploy-to-beta:
     docker:
