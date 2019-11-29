@@ -63,7 +63,7 @@ jobs:
               -f .circleci/languages-values.yaml \
               beta-languages \
               praqma/cyber-dojo-service \
-              --version 0.2.3
+              --version 0.2.4
 
   deploy-to-prod:
     docker:
@@ -86,7 +86,7 @@ jobs:
               -f .circleci/languages-values.yaml \
               prod-languages \
               praqma/cyber-dojo-service \
-              --version 0.2.3
+              --version 0.2.4
 
 workflows:
   version: 2
