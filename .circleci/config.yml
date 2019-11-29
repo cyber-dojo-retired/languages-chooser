@@ -18,11 +18,11 @@ jobs:
           command: |
             set -e
             IMAGE=cyberdojo/languages-all
-            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+            docker tag  ${IMAGE}:latest ${IMAGE}:${CIRCLE_SHA1:0:7}
             IMAGE=cyberdojo/languages-common
-            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+            docker tag  ${IMAGE}:latest ${IMAGE}:${CIRCLE_SHA1:0:7}
             IMAGE=cyberdojo/languages-small
-            docker tag  ${IMAGE}:latest ${image}:${CIRCLE_SHA1:0:7}
+            docker tag  ${IMAGE}:latest ${IMAGE}:${CIRCLE_SHA1:0:7}
 
       - run:
           name: Publish tagged docker image on dockerhub
