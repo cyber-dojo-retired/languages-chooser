@@ -5,7 +5,7 @@ readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 readonly CDL_DIR="$(cd "${ROOT_DIR}" && cd ../../cyber-dojo-languages && pwd )"
 
 export SHA_VALUE=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
-export CYBER_DOJO_LANGUAGES_PORT=4999
+export CYBER_DOJO_LANGUAGES_PORT=4534
 
 ${ROOT_DIR}/../commander/cyber-dojo start-point create \
   cyberdojo/languages-small \

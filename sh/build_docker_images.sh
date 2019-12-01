@@ -17,7 +17,7 @@ curl -O --silent --fail "${GITHUB_ORG}/commander/master/${SCRIPT_NAME}"
 chmod 700 ./${SCRIPT_NAME}
 
 export SHA_VALUE=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
-export CYBER_DOJO_LANGUAGES_PORT=4999
+export CYBER_DOJO_LANGUAGES_PORT=4534
 
 ./${SCRIPT_NAME} start-point create \
   cyberdojo/languages-all \

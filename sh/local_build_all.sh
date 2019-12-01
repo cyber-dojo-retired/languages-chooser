@@ -7,7 +7,7 @@ readonly GITHUB_ORG=https://raw.githubusercontent.com/cyber-dojo
 readonly LANGUAGES_LIST="${GITHUB_ORG}/languages/master/url_list"
 
 export SHA_VALUE=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
-export CYBER_DOJO_LANGUAGES_PORT=4999
+export CYBER_DOJO_LANGUAGES_PORT=4534
 
 ${ROOT_DIR}/../commander/cyber-dojo start-point create \
   cyberdojo/languages-all \

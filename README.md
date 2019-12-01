@@ -16,7 +16,7 @@ LANGUAGES_LIST="${GITHUB_ORG}/languages/master/url_list"
 curl -O --silent --fail "${GITHUB_ORG}/commander/master/${SCRIPT}"
 chmod 700 ./${SCRIPT}
 
-export CYBER_DOJO_LANGUAGES_PORT=4999
+export CYBER_DOJO_LANGUAGES_PORT=4534
 
 IMAGE_NAME=cyberdojo/languages-all
 ./${SCRIPT} start-point create \

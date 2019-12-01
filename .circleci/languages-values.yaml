@@ -4,10 +4,10 @@ fullnameOverride: "languages"
 replicaCount: 3
 
 service:
-  port: 4999
+  port: 4534
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "4999"
+    prometheus.io/port: "4534"
 
 volumes:
   - name: languages-tmp-dir
@@ -38,10 +38,10 @@ containers:
         memory: 64Mi
     livenessProbe:
       path: /alive?
-      port: 4999
+      port: 4534
     readinessProbe:
       path: /ready?
-      port: 4999
+      port: 4534
 
 envFromSecret: {}
 
