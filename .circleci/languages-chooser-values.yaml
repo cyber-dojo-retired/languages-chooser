@@ -1,5 +1,5 @@
 
-fullnameOverride: "languages"
+fullnameOverride: "languages-chooser"
 
 replicaCount: 3
 
@@ -10,7 +10,7 @@ service:
     prometheus.io/port: "4534"
 
 volumes:
-  - name: languages-tmp-dir
+  - name: languages-chooser-tmp-dir
     emptyDir:
       medium: Memory
       sizeLimit: "16Mi"
@@ -20,13 +20,13 @@ podSecurityContext:
   fsGroup: 65534 # nobody
 
 containers:
-  - name: languages
-    image: cyberdojo/languages-all
+  - name: languages-chooser
+    image: cyberdojo/languages-chooser
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
     volumeMounts:
-      - name: languages-tmp-dir
+      - name: languages-chooser-tmp-dir
         mountPath: /tmp
         readOnly: false
     resources:
