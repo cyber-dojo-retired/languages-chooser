@@ -4,10 +4,8 @@ fullnameOverride: "languages-chooser"
 replicaCount: 3
 
 service:
-  port: 4534
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "4534"
 
 volumes:
   - name: languages-chooser-tmp-dir
@@ -21,7 +19,6 @@ podSecurityContext:
 
 containers:
   - name: languages-chooser
-    image: cyberdojo/languages-chooser
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
@@ -38,10 +35,8 @@ containers:
         memory: 128Mi
     livenessProbe:
       path: /alive?
-      port: 4534
     readinessProbe:
       path: /ready?
-      port: 4534
 
 envFromSecret: {}
 
