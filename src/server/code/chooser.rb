@@ -23,11 +23,13 @@ class Chooser
   end
 
   def group_create(display_names:)
-    creator.group_create(display_names)
+    exercise_name = 'Fizz Buzz'
+    creator.group_create(exercise_name, display_names)
   end
 
   def kata_create(display_name:)
-    creator.kata_create(display_name)
+    exercise_name = 'Fizz Buzz'
+    creator.kata_create(exercise_name, display_name)
   end
 
   private
