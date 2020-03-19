@@ -4,7 +4,7 @@ $(() => {
 
   $('button#ok').click(() => {
     const displayName = cd.selectedDisplayName;
-    const params = 'display_name=' + encodeURIComponent(displayName);
+    const params = 'language_name=' + encodeURIComponent(displayName);
     window.location = `<%= @create_url %>?${params}`;
   });
 

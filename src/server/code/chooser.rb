@@ -22,14 +22,14 @@ class Chooser
     languages_start_points.manifests
   end
 
-  def group_create(display_names:)
+  def group_create(languages_names:)
     exercise_name = 'Fizz Buzz'
-    creator.group_create(exercise_name, display_names)
+    creator.group_create(exercise_name, languages_names)
   end
 
-  def kata_create(display_name:)
+  def kata_create(language_name:)
     exercise_name = 'Fizz Buzz'
-    creator.kata_create(exercise_name, display_name)
+    creator.kata_create(exercise_name, language_name)
   end
 
   private
