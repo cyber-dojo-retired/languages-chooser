@@ -55,22 +55,6 @@ services:
     volumes: [ "./test:/test/:ro" ]
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  creator:
-    depends_on:
-      - custom-start-points
-      - exercises-start-points
-      - languages-start-points
-      - saver
-    environment: [ NO_PROMETHEUS ]
-    image: ${CYBER_DOJO_CREATOR_IMAGE}:latest
-    init: true
-    ports: [ "${CYBER_DOJO_CREATOR_PORT}:${CYBER_DOJO_CREATOR_PORT}" ]
-    read_only: true
-    restart: 'no'
-    tmpfs: /tmp
-    user: nobody
-
-  #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   selenium:
     image: selenium/standalone-firefox
     ports: [ "4444:4444" ]
