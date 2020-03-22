@@ -2,6 +2,7 @@
 
 readonly ROOT_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
 source "${ROOT_DIR}/sh/augmented_docker_compose.sh"
+source "${ROOT_DIR}/sh/container_info.sh"
 source "${ROOT_DIR}/sh/ip_address.sh"
 readonly IP_ADDRESS=$(ip_address) # slow
 export NO_PROMETHEUS=true
@@ -11,7 +12,7 @@ wait_briefly_until_ready()
 {
   local -r port="${1}"
   local -r name="${2}"
-  local -r max_tries=50
+  local -r max_tries=40
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then

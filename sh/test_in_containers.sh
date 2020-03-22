@@ -1,11 +1,14 @@
 #!/bin/bash -Eeu
 readonly root_dir="$(cd "$(dirname "${0}")/.." && pwd)"
+source "${root_dir}/sh/container_info.sh"
 readonly my_name=languages-chooser
-readonly client_user="${1}"; shift
-readonly server_user="${1}"; shift
+readonly client_user="${1}"
+readonly server_user="${2}"
+shift
+shift
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-main()
+test_in_containers()
 {
   if on_ci; then
     docker pull cyberdojo/check-test-results:latest
@@ -50,6 +53,10 @@ run_tests()
   echo "Running ${type} tests"
   echo '=================================='
 
+  # Remove old copies of files we are about to create
+  rm ${tmp_dir}/${test_log} 2> /dev/null || true
+  rm ${tmp_dir}/index.html  2> /dev/null || true
+
   set +e
   docker exec \
     --env COVERAGE_CODE_TAB_NAME=${coverage_code_tab_name} \
@@ -91,4 +98,4 @@ run_tests()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-main "$@"
+test_in_containers "$@"
