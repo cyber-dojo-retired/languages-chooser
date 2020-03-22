@@ -12,6 +12,9 @@ augmented_docker_compose()
       languages-start-points \
                      creator \
                        saver \
-    | \
-      docker-compose --file - "$@"
+                    selenium \
+    | tee /tmp/augmented-docker-compose.peek.yml \
+    | docker-compose \
+        --file -     \
+        "$@"
 }
