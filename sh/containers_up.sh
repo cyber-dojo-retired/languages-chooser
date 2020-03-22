@@ -11,7 +11,7 @@ wait_briefly_until_ready()
 {
   local -r port="${1}"
   local -r name="${2}"
-  local -r max_tries=40
+  local -r max_tries=50
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then
