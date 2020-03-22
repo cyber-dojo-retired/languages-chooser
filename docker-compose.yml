@@ -9,45 +9,24 @@ services:
   nginx:
     build:
       context: src/nginx_stub
-    container_name: test-nginx
     depends_on:
-      - languages-chooser-server
+      - languages-chooser
     image: cyberdojo/nginx_languages_stub
     init: true
-    ports: [ "80:80" ]
+    ports: [ "${CYBER_DOJO_NGINX_PORT}:${CYBER_DOJO_NGINX_PORT}" ]
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  languages-chooser-client:
+  client:
     build:
       args: [ COMMIT_SHA, CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT ]
       context: src/client
-    container_name: test-languages-chooser-client
     depends_on:
-      - languages-chooser-server
+      - languages-chooser
       - selenium
     image: cyberdojo/test-languages-chooser-client
     init: true
     ports: [ "${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT}:${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT}" ]
-    read_only: true
-    restart: "no"
-    tmpfs: /tmp
-    user: nobody
-    volumes: [ "./test:/test/:ro" ]
-
-  #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  languages-chooser-server:
-    build:
-      args: [ COMMIT_SHA, CYBER_DOJO_LANGUAGES_CHOOSER_PORT ]
-      context: src/server
-    container_name: test-languages-chooser-server
-    depends_on:
-      - languages-start-points
-      - creator
-    environment: [ NO_PROMETHEUS ]
-    image: ${CYBER_DOJO_LANGUAGES_CHOOSER_IMAGE}
-    init: true
-    ports: [ "${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}:${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}" ]
     read_only: true
     restart: "no"
     tmpfs: /tmp

@@ -7,6 +7,46 @@ source "${ROOT_DIR}/sh/ip_address.sh"
 readonly IP_ADDRESS=$(ip_address) # slow
 export NO_PROMETHEUS=true
 
+# - - - - - - - - - - - - - - - - - - -
+containers_up()
+{
+  local -r server_port=${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}
+  local -r client_port=${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT}
+  if [ "${1:-}" == 'api-demo' ]; then
+    container_up_ready_and_clean ${server_port} languages-chooser
+    container_up_ready_nginx
+  elif [ "${1:-}" == 'server' ]; then
+    container_up_ready_and_clean ${server_port} languages-chooser
+  else
+    container_up_ready_and_clean ${client_port} client
+    container_up_ready_nginx
+  fi
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up_ready_and_clean()
+{
+  local -r port="${1}"
+  local -r service_name="${2}"
+  container_up "${service_name}"
+  # obtain container-up only once containers are up
+  local -r container_name=$(service_container ${service_name})
+  wait_briefly_until_ready "${port}" "${container_name}"
+  exit_if_unclean "${container_name}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up()
+{
+  local -r service_name="${1}"
+  printf '\n'
+  augmented_docker_compose \
+    up \
+    --detach \
+    --force-recreate \
+      "${service_name}"
+}
+
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
 {
@@ -17,7 +57,7 @@ wait_briefly_until_ready()
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then
       printf '.OK\n\n'
-      #docker logs ${name}
+      docker logs ${name}
       return
     else
       printf .
@@ -53,30 +93,8 @@ curl_ready()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-ready_response()
-{
-  cat "$(ready_filename)"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-ready_filename()
-{
-  printf /tmp/curl-languages-chooser-ready-output
-}
-
-# - - - - - - - - - - - - - - - - - - -
-strip_known_warning()
-{
-  local -r log="${1}"
-  local -r known_warning="${2}"
-  local stripped=$(printf "${log}" | grep --invert-match -E "${known_warning}")
-  if [ "${log}" != "${stripped}" ]; then
-    >&2 echo "SERVICE START-UP WARNING: ${known_warning}"
-  else
-    >&2 echo "DID _NOT_ FIND WARNING!!: ${known_warning}"
-  fi
-  echo "${stripped}"
-}
+ready_response() { cat "$(ready_filename)"; }
+ready_filename() { printf /tmp/curl-languages-chooser-ready-output; }
 
 # - - - - - - - - - - - - - - - - - - -
 exit_if_unclean()
@@ -103,6 +121,20 @@ exit_if_unclean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
+strip_known_warning()
+{
+  local -r log="${1}"
+  local -r known_warning="${2}"
+  local stripped=$(printf "${log}" | grep --invert-match -E "${known_warning}")
+  if [ "${log}" != "${stripped}" ]; then
+    >&2 echo "SERVICE START-UP WARNING: ${known_warning}"
+  else
+    >&2 echo "DID _NOT_ FIND WARNING!!: ${known_warning}"
+  fi
+  echo "${stripped}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
 print_docker_log()
 {
   local -r container_name="${1}"
@@ -114,39 +146,50 @@ print_docker_log()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean()
+container_up_ready_nginx()
 {
-  local -r port="${1}"
-  local -r service_name="${2}"
-  local -r container_name="test-${service_name}"
-  container_up "${port}" "${service_name}"
-  wait_briefly_until_ready "${port}" "${container_name}"
-  exit_if_unclean "${container_name}"
+  container_up nginx
+  printf "Waiting until nginx is ready"
+  local -r max_tries=40
+  for _ in $(seq ${max_tries}); do
+    if curl_nginx; then
+      printf '.OK\n'
+      return
+    else
+      printf .
+      sleep 0.1
+    fi
+  done
+  printf 'FAIL\n'
+  printf "nginx not ready after ${max_tries} tries\n"
+  if [ -f "$(nginx_filename)" ]; then
+    printf "$(nginx_response)\n"
+  else
+    printf "$(nginx_filename) does not exist?!\n"
+  fi
+  local -r container_name=$(service_container nginx)
+  docker logs "${container_name}"
+  exit 42
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up()
+curl_nginx()
 {
-  local -r port="${1}"
-  local -r service_name="${2}"
-  printf '\n'
-  augmented_docker_compose \
-    up \
-    --detach \
-    --force-recreate \
-      "${service_name}"
+  rm -f $(nginx_filename)
+  local -r url="http://${IP_ADDRESS}:80/sha.txt"
+  curl \
+    --fail \
+    --output $(nginx_filename) \
+    --request GET \
+    --silent \
+    "${url}"
+
+  [ "$?" == '0' ]
 }
 
 # - - - - - - - - - - - - - - - - - - -
+nginx_response() { cat "$(nginx_filename)"; }
+nginx_filename() { printf /tmp/curl-custom-chooser-nginx-output; }
 
-if [ "${1:-}" == 'api-demo' ]; then
-  container_up 80 nginx
-  wait_briefly_until_ready ${CYBER_DOJO_LANGUAGES_CHOOSER_PORT} languages-chooser-server
-fi
-
-if [ "${1:-}" == 'server' ]; then
-  container_up_ready_and_clean ${CYBER_DOJO_LANGUAGES_CHOOSER_PORT} languages-chooser-server
-else
-  container_up 80 nginx
-  container_up_ready_and_clean ${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT} languages-chooser-client
-fi
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+containers_up "$@"
