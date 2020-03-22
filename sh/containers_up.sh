@@ -16,7 +16,7 @@ wait_briefly_until_ready()
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then
       printf '.OK\n\n'
-      docker logs ${name}
+      #docker logs ${name}
       return
     else
       printf .
