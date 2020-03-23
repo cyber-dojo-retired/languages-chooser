@@ -52,7 +52,7 @@ run_tests()
   else # server
     local -r container_name="$(service_container ${my_name})"
   fi
-  
+
   echo
   echo '=================================='
   echo "Running ${type} tests"

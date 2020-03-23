@@ -6,6 +6,11 @@
 # service-name and would prevent .sh scripts which obtain
 # the container-name from the service-name from working.
 # See sh/container_info.sh
+#
+# The initial change-directory command is needed because
+# the current working directory is taken as the dir for
+# relative pathnames (eg in volume-mounts) when the
+# yml is received from stdin (--file -).
 
 augmented_docker_compose()
 {
