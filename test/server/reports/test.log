@@ -1,31 +1,31 @@
-Run options: --seed 6580
+Run options: --seed 64178
 
 # Running:
 
 .......................
 
-Finished in 0.325067s, 70.7545 runs/s, 372.2305 assertions/s.
+Finished in 0.349122s, 65.8795 runs/s, 346.5833 assertions/s.
 
 23 runs, 121 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 13085 / 24354 LOC (53.73%) covered.
+Coverage report generated for MiniTest to //tmp/reports. 13083 / 24345 LOC (53.74%) covered.
 
 Slowest 5 tests are...
-0.1012 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0262 - q7DJe5:request_error_test.rb:38:|GET/group_create with unknown exercise_name |is 500 error
-0.0241 - v42w9B:create_test.rb:49:|GET /kata_create?exercise_name=X&language_name=Y |where X is valid and Y is valid |redirects to /kata/edit/:id page |and a kata with :id exists
-0.0234 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is valid and Y is valid |redirects to /kata/group/:id page |and a group with :id exists
-0.0233 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all languages_names |ready to create a kata |when languages_start_points is online
-0.0228 - a7318w:choose_test.rb:12:|GET/group_choose |offers all languages_names |ready to create a group |when languages_start_points is online
+0.0995 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0272 - a7318w:choose_test.rb:12:|GET/group_choose |offers all languages_names |ready to create a group |when languages_start_points is online
+0.0255 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all languages_names |ready to create a kata |when languages_start_points is online
+0.0251 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is valid and Y is valid |redirects to /kata/group/:id page |and a group with :id exists
+0.0231 - v42w9B:create_test.rb:49:|GET /kata_create?exercise_name=X&language_name=Y |where X is valid and Y is valid |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0223 - d5ae5K:alive_test.rb:12:its alive!                                      
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.33   <=     5 | [32m true [0m
+        duration(test)[s] |    0.35   <=     5 | [32m true [0m
                     tests |      23   >=     1 | [32m true [0m
-      coverage(tested)[%] |   96.57   >=   100 | [31m false [0m
+      coverage(tested)[%] |   99.55   >=   100 | [31m false [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.91   >=   0.9 | [32m true [0m
-      hits(tested/tester) |    3.00   >=   2.1 | [32m true [0m
+     lines(tester/tested) |    0.95   >=   0.9 | [32m true [0m
+      hits(tested/tester) |    3.12   >=   2.1 | [32m true [0m
 
