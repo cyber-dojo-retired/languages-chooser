@@ -71,7 +71,9 @@ class App < AppBase
     @display_names = manifests.keys.sort
     @display_contents = []
     @display_names.each do |name|
-      @display_contents << selected(manifests[name]['visible_files'])
+      visible_files = manifests[name]['visible_files']
+      filename = selected(visible_files)
+      @display_contents << visible_files[filename]['content']
     end
     @create_url = "/languages-chooser/#{next_page}"
   end

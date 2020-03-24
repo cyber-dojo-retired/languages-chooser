@@ -2,13 +2,22 @@
 module SelectedHelper
 
   def selected(visible_files)
-    if visible_files.has_key?('readme.txt')
-      visible_files['readme.txt']['content']
-    else
-      visible_files.max{ |(_,lhs),(_,rhs)|
-        lhs['content'].size <=> rhs['content'].size
-      }[1]['content']
-    end
+    filenames = visible_files.keys.sort
+    find_filename(filenames, 'test')      ||
+      find_filename(filenames, 'feature') ||
+        find_filename(filenames, 'spec')    ||
+          find_content(visible_files, 'assert') ||
+            find_content(visible_files, 'answer') ||
+              filenames[0]
+  end
+
+  def find_filename(filenames, word)
+    filenames.find{ |filename| filename.downcase.include?(word) }
+  end
+
+  def find_content(visible_files, word)
+    s = visible_files.find{ |filename,file| file['content'].include?(word) }
+    s ? s[0] : nil
   end
 
 end

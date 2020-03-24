@@ -13,50 +13,94 @@ class LargestTest < TestBase
   # - - - - - - - - - - - - - - - - - - -
 
   test '841', %w(
-  select readme.txt content when readme.txt present
-  even if not largest content
+  Rule 1:
+  when there is a filename
+  which includes the word 'test'
+  then select it
   ) do
-    expected = 'x' * 34
-    visible_files = {
-      'readme.txt' => {
-        'content' => expected,
-      },
-      'larger.txt' => {
-        'content' => 'y'*142
-      }
-    }
-    assert_equal expected, selected(visible_files)
+    expected = 'HikerTest.java' # eg java-junit
+    assert_equal expected, selected(make_visible_files(expected))
   end
 
   # - - - - - - - - - - - - - - - - - - -
 
   test '842', %w(
-  selected content when single visible_file
+  Rule 2:
+  when there is a filename
+  which includes the word 'feature'
+  then select it
   ) do
-    expected = 'x' * 34
-    visible_files = {
-      'instructions' => {
-        'content' => expected
-      }
-    }
-    assert_equal expected, selected(visible_files)
+    expected = 'hiker.feature' # eg gplusplus-cucumber
+    assert_equal expected, selected(make_visible_files(expected))
   end
 
   # - - - - - - - - - - - - - - - - - - -
 
   test '843', %w(
-  select largest content when more than one visible_file
+  Rule 3:
+  when there is a filename
+  which includes the word 'spec'
+  then select it
   ) do
-    expected = 'x' * 34
-    visible_files = {
-      'smaller' => {
-        'content' => 'y' * 33,
-      },
-      'larger.txt' => {
-        'content' => expected
-      }
+    expected = 'hiker_spec.rb' # eg ruby-approval
+    assert_equal expected, selected(make_visible_files(expected))
+  end
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  test '844', %w(
+  Rule 4:
+  when there is no filename
+  which includes the word 'test' or 'feature' or 'spec'
+  then select filename whose content includes the word 'assert'.
+  ) do
+    expected = 'src/lib.rs' # eg rust-test
+    content = 'assert_eq!(42, answer());'
+    assert_equal expected, selected(make_visible_files(expected,content))
+  end
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  test '845', %w(
+  Rule 5:
+  when there is no file
+  which includes the word 'test' or 'feature' or 'spec'
+  then select the filename whose content includes the word 'answer'.
+  ) do
+    expected = 'hiker.pl' # eg prolog-plunit
+    content = 'answer(X) :- X is 6 * 9.'
+    assert_equal expected, selected(make_visible_files(expected,content))
+  end
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  test '846', %w(
+  Rule 6:
+  when language-start-points-all gets a new entry
+  and it misses all the above cases
+  then select the first filename alphabetically (often cyber-dojo.sh)
+  ) do
+    expected = 'cyber-dojo.sh'
+    assert_equal expected, selected(make_visible_files(expected))
+  end
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  test '847', %w(
+  these rules cover all current languages-start-points manifests
+  ) do
+    manifests.each do |display_name,manifest|
+      refute_nil selected(manifest['visible_files']), display_name
+    end
+  end
+
+  private
+
+  def make_visible_files(filename, content='y*42')
+    {
+      'readme.txt' => { 'content' => 'a'*23 },
+      filename => { 'content' => content }
     }
-    assert_equal expected, selected(visible_files)
   end
 
 end
