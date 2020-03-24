@@ -116,4 +116,4 @@ display_name() { echo -n 'C (gcc), assert'; }
 tab() { printf '\t'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-api_demo "${1:-}"
+api_demo "$@"
