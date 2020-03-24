@@ -3,8 +3,6 @@
 readonly ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT_DIR}/sh/augmented_docker_compose.sh"
 source "${ROOT_DIR}/sh/image_sha.sh"
-source "${ROOT_DIR}/sh/versioner_env_vars.sh"
-export $(versioner_env_vars)
 
 #- - - - - - - - - - - - - - - - - - - - - - - -
 build_images()

@@ -4,12 +4,7 @@ readonly SH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SH_DIR}/build_images.sh"
 source "${SH_DIR}/containers_down.sh"
 source "${SH_DIR}/containers_up.sh"
-source "${SH_DIR}/ip_address.sh" # slow
-source "${SH_DIR}/versioner_env_vars.sh" # for build-image
-export $(versioner_env_vars)
-if [ "${IP_ADDRESS:-}" == '' ]; then
-  readonly IP_ADDRESS="$(ip_address)"
-fi
+source "${SH_DIR}/ip_address.sh"
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 api_demo()

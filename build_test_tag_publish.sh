@@ -1,4 +1,5 @@
 #!/bin/bash -Eeu
+
 readonly SH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/sh" && pwd)"
 source "${SH_DIR}/build_images.sh"
 source "${SH_DIR}/containers_down.sh"
@@ -6,8 +7,6 @@ source "${SH_DIR}/containers_up.sh"
 source "${SH_DIR}/image_name.sh"
 source "${SH_DIR}/image_sha.sh"
 source "${SH_DIR}/test_in_containers.sh"
-source "${SH_DIR}/versioner_env_vars.sh"
-export $(versioner_env_vars)
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
 build_test_tag_publish()

@@ -6,9 +6,6 @@ fi
 source "${ROOT_DIR}/sh/augmented_docker_compose.sh"
 source "${ROOT_DIR}/sh/container_info.sh"
 source "${ROOT_DIR}/sh/ip_address.sh"
-if [ "${IP_ADDRESS:-}" == '' ]; then
-  readonly IP_ADDRESS=$(ip_address) # slow
-fi
 export NO_PROMETHEUS=true
 
 # - - - - - - - - - - - - - - - - - - -
