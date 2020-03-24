@@ -6,10 +6,8 @@ readonly my_name=languages-chooser
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 test_in_containers()
 {
-  local -r client_user="${1}"
-  local -r server_user="${2}"
-  shift
-  shift
+  local -r client_user="${CYBER_DOJO_LANGUAGES_CHOOSER_SERVER_USER}"
+  local -r server_user="${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_USER}"
   if on_ci; then
     docker pull cyberdojo/check-test-results:latest
   fi

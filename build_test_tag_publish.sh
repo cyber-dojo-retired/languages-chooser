@@ -13,9 +13,7 @@ build_test_tag_publish()
 {
   build_images
   containers_up "$@"
-  local -r client_user="${CYBER_DOJO_LANGUAGES_CHOOSER_SERVER_USER}"
-  local -r server_user="${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_USER}"
-  test_in_containers "${client_user}" "${server_user}" "$@"
+  test_in_containers "$@"
   containers_down
   tag_the_image
   on_ci_publish_tagged_images
