@@ -24,6 +24,7 @@ class CreateTest < TestBase
 
   test 'w9A', %w(
   |GET /group_create?exercise_names=X&languages_names[]=Y
+  |where X is valid and Y is valid
   |redirects to /kata/group/:id page
   |and a group with :id exists
   ) do
@@ -47,6 +48,7 @@ class CreateTest < TestBase
 
   test 'w9B', %w(
   |GET /kata_create?exercise_name=X&language_name=Y
+  |where X is valid and Y is valid  
   |redirects to /kata/edit/:id page
   |and a kata with :id exists
   ) do

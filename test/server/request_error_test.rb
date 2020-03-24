@@ -7,31 +7,48 @@ class RequestErrorTest < TestBase
     'q7D'
   end
 
+  def id58_setup
+    @exercise_name = 'Fizz Buzz'
+    @language_name = languages_names.sample
+  end
+
+  attr_reader :exercise_name, :language_name
+
   # - - - - - - - - - - - - - - - - -
 
   test 'Je4', %w(
-  |POST with non-JSON in request.body
+  |GET/kata_create with unknown exercise_name
   |is 500 error
   ) do
     path = 'kata_create'
-    not_json = 'xxx'
-    _stdout,_stderr = capture_stdout_stderr {
-      post '/'+path, not_json, JSON_REQUEST_HEADERS
+    _stdout,stderr = capture_stdout_stderr {
+      get '/'+path, {
+        exercise_name:'unknown',
+        language_name:language_name
+      }
     }
+    # puts _stdout
+    # puts '~~~~~~~~~'
+    assert_equal '', stderr
     assert status?(500), status
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test 'Je5', %w(
-  |POST with non-JSON-Hash in request.body
+  |GET/group_create with unknown exercise_name
   |is 500 error
   ) do
     path = 'kata_create'
-    not_json = '[]'
-    _stdout,_stderr = capture_stdout_stderr {
-      post '/'+path, not_json, JSON_REQUEST_HEADERS
+    _stdout,stderr = capture_stdout_stderr {
+      get '/'+path, {
+        exercise_name:'unknown',
+        language_name:language_name
+      }
     }
+    # puts _stdout
+    # puts '~~~~~~~~~'
+    assert_equal '', stderr    
     assert status?(500), status
   end
 

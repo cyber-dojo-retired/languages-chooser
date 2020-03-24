@@ -1,27 +1,59 @@
-Run options: --seed 34873
+Run options: --seed 3319
 
 # Running:
 
-..
+.................200
+F200
+F200
+F200
+F..SimpleCov failed with exit 1
 
-Finished in 0.079034s, 25.3057 runs/s, 708.5592 assertions/s.
+Finished in 1.672452s, 13.7523 runs/s, 69.9572 assertions/s.
 
-2 runs, 56 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 10793 / 22485 LOC (48.0%) covered.
+  1) Failure:
+ResponseErrorTest#test_
+id58 'F8k',
+'|any http-service call |is a 500 error |when response's json.body is not JSON' [/test/server/response_error_test.rb:17]:
+200
 
-Slowest 2 tests are...
-0.0536 - a7318w:choose_test.rb:12:|GET/group_choose |offers all display_names |ready to create a group |when custom_start_points is online
-0.0229 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all display_names |ready to create a kata |when custom_start_points is online
+  2) Failure:
+ResponseErrorTest#test_
+id58 'F9q',
+'|any http-service call |is a 500 error |when response's json.body has no key for method' [/test/server/response_error_test.rb:47]:
+200
+
+  3) Failure:
+ResponseErrorTest#test_
+id58 'F9p',
+'|any http-service call |is a 500 error |when response's json.body has embedded exception' [/test/server/response_error_test.rb:37]:
+200
+
+  4) Failure:
+ResponseErrorTest#test_
+id58 'F9k',
+'|any http-service call |is a 500 error |when response's json.body is not JSON-Hash' [/test/server/response_error_test.rb:27]:
+200
+
+23 runs, 117 assertions, 4 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 13097 / 24354 LOC (53.78%) covered.
+
+Slowest 5 tests are...
+0.2506 - a7318w:choose_test.rb:12:|GET/group_choose |offers all languages_names |ready to create a group |when languages_start_points is online
+0.2455 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.1989 - v42w9B:create_test.rb:49:|GET /kata_create?exercise_name=X&language_name=Y |where X is valid and Y is valid |redirects to /kata/edit/:id page |and a kata with :id exists
+0.1367 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is valid and Y is valid |redirects to /kata/group/:id page |and a group with :id exists
+0.0815 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all languages_names |ready to create a kata |when languages_start_points is online
+0.0782 - a8615D:ready_test.rb:13:ready when languages-start-points and creator are both ready
 
 
-                 failures |       0   <=     0 | [32m true [0m
+                 failures |       4   <=     0 | [31m false [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.08   <=     5 | [32m true [0m
-                    tests |       2   >=     1 | [32m true [0m
-      coverage(tested)[%] |   72.69   >=   100 | [31m false [0m
-      coverage(tester)[%] |   51.85   >=   100 | [31m false [0m
-     lines(tester/tested) |    0.95   >=   0.9 | [32m true [0m
-      hits(tested/tester) |    1.96   >=   2.1 | [31m false [0m
+        duration(test)[s] |    1.67   <=     5 | [32m true [0m
+                    tests |      23   >=     1 | [32m true [0m
+      coverage(tested)[%] |   95.28   >=   100 | [31m false [0m
+      coverage(tester)[%] |   98.59   >=   100 | [31m false [0m
+     lines(tester/tested) |    0.91   >=   0.9 | [32m true [0m
+      hits(tested/tester) |    5.18   >=   2.1 | [32m true [0m
 
