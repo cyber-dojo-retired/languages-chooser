@@ -17,7 +17,7 @@ api_demo()
   if [ "${1:-}" == '--no-browser' ]; then
     containers_down
   else
-    open "http://${IP_ADDRESS}:80/languages-chooser/group_choose"
+    open "http://${IP_ADDRESS}:80/languages-chooser/group_choose?exercise_name=Fizz Buzz"
   fi
 }
 
