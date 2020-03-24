@@ -8,8 +8,8 @@
 export $(curl https://raw.githubusercontent.com/cyber-dojo/versioner/master/app/.env)
 
 readonly NAMESPACE="${1}" # beta | prod
-readonly IMAGE="${CYBER_DOJO_CUSTOM_CHOOSER_IMAGE}"
-readonly PORT="${CYBER_DOJO_CUSTOM_CHOOSER_PORT}"
+readonly IMAGE="${CYBER_DOJO_LANGUAGES_CHOOSER_IMAGE}"
+readonly PORT="${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}"
 readonly TAG="${CIRCLE_SHA1:0:7}"
 
 # misc env-vars are in ci context
