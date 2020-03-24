@@ -11,17 +11,17 @@ class ChooseTest < TestBase
 
   test '18w', %w(
   |GET/group_choose
-  |offers all display_names
+  |offers all languages_names
   |ready to create a group
-  |when custom_start_points is online
+  |when languages_start_points is online
   ) do
     get '/group_choose'
     assert status?(200), status
     html = last_response.body
     assert heading(html).include?('our'), html
     refute heading(html).include?('my'), html
-    display_names.each do |display_name|
-      assert html =~ div_for(display_name), display_name
+    languages_names.each do |language_name|
+      assert html =~ div_for(language_name), language_name
     end
   end
 
@@ -29,17 +29,17 @@ class ChooseTest < TestBase
 
   test '19w', %w(
   |GET/kata_choose
-  |offers all display_names
+  |offers all languages_names
   |ready to create a kata
-  |when custom_start_points is online
+  |when languages_start_points is online
   ) do
     get '/kata_choose'
     assert status?(200), status
     html = last_response.body
     assert heading(html).include?('my'), html
     refute heading(html).include?('our'), html
-    display_names.each do |display_name|
-      assert html =~ div_for(display_name), display_name
+    languages_names.each do |language_name|
+      assert html =~ div_for(language_name), language_name
     end
   end
 
