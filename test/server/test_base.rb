@@ -20,7 +20,7 @@ class TestBase < Id58TestBase
     App.new(externals) # [1]
   end
 
-  def display_names
+  def languages_names
     manifests.keys.sort
   end
 
