@@ -1,21 +1,26 @@
 #!/bin/bash -Eeu
 
-readonly SH_DIR="$(cd "$(dirname "${0}")" && pwd)"
-source "${SH_DIR}/versioner_env_vars.sh" # for build-image
+readonly SH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SH_DIR}/build_images.sh"
+source "${SH_DIR}/containers_down.sh"
+source "${SH_DIR}/containers_up.sh"
 source "${SH_DIR}/ip_address.sh" # slow
+source "${SH_DIR}/versioner_env_vars.sh" # for build-image
 export $(versioner_env_vars)
-readonly IP_ADDRESS="$(ip_address)"
+if [ "${IP_ADDRESS:-}" == '' ]; then
+  readonly IP_ADDRESS="$(ip_address)"
+fi
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 api_demo()
 {
-  "${SH_DIR}/build_images.sh"
-  "${SH_DIR}/containers_up.sh" api-demo
+  build_images
+  containers_up api-demo
   echo
   demo
   echo
   if [ "${1:-}" == '--no-browser' ]; then
-    "${SH_DIR}/containers_down.sh"
+    containers_down
   else
     open "http://${IP_ADDRESS}:80/languages-chooser/group_choose"
   fi
