@@ -2,8 +2,13 @@
 'use strict';
 $(() => {
 
+  const urlParam = (name) => {
+    const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.search);
+    return (results !== null) ? results[1] || 0 : false;
+  };
+
   $('button#ok').click(() => {
-    const exerciseName = encodeURIComponent('Fizz Buzz');
+    const exerciseName = urlParam('exercise_name');
     const displayName = encodeURIComponent(cd.selectedDisplayName);
     const params = `exercise_name=${exerciseName}&language_name=${displayName}`;
     window.location = `<%= @create_url %>?${params}`;
