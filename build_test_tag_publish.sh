@@ -13,7 +13,7 @@ build_test_tag_publish()
 {
   build_images
   containers_up "$@"
-  test_in_containers "$@"
+  test_in_containers server "$@"
   containers_down
   tag_the_image
   on_ci_publish_tagged_images
