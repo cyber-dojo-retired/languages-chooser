@@ -61,7 +61,7 @@ class ResponseErrorTest < TestBase
 
   def stub_custom_start_points_http(body)
     externals.instance_exec {
-      @custom_start_points_http = HttpAdapterStub.new(body)
+      @languages_start_points_http = HttpAdapterStub.new(body)
     }
   end
 
