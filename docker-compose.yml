@@ -24,11 +24,11 @@ services:
     depends_on:
       - languages-chooser
       - selenium
-    image: cyberdojo/test-languages-chooser-client
+    image: cyberdojo/languages-chooser-client
     init: true
     ports: [ "${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT}:${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_PORT}" ]
     read_only: true
     restart: "no"
     tmpfs: /tmp
-    user: nobody
+    user: ${CYBER_DOJO_LANGUAGES_CHOOSER_CLIENT_USER}
     volumes: [ "./test:/test/:ro" ]
