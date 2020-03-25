@@ -22,6 +22,20 @@ class LargestTest < TestBase
     assert_equal expected, selected(make_visible_files(expected))
   end
 
+  test '941', %w(
+  |Rule 1:new
+  |when there are filenames
+  |which include the word 'test'
+  |the select the one with the most content
+  ) do
+    expected = 'HikerTest.java' # eg java-approval
+    visible_files = {
+      expected => { 'content' => 'import org.junit.*;...' },
+      'HikerTest.hhgttg.approved.txt' => { 'content' => '42' }
+    }
+    assert_equal expected, selected(visible_files)
+  end
+
   # - - - - - - - - - - - - - - - - - - -
 
   test '842', %w(
