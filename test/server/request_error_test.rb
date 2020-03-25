@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require_relative 'test_base'
+require 'json'
 
 class RequestErrorTest < TestBase
 
@@ -21,14 +22,13 @@ class RequestErrorTest < TestBase
   |is 500 error
   ) do
     path = 'kata_create'
-    _stdout,stderr = capture_stdout_stderr {
+    stdout,stderr = capture_stdout_stderr {
       get '/'+path, {
         exercise_name:'unknown',
         language_name:language_name
       }
     }
-    # puts _stdout
-    # puts '~~~~~~~~~'
+    verify_exception_info_on(stdout, 'http_service')
     assert_equal '', stderr, :stderr_is_empty
     assert status?(500), status
   end
@@ -40,14 +40,13 @@ class RequestErrorTest < TestBase
   |is 500 error
   ) do
     path = 'kata_create'
-    _stdout,stderr = capture_stdout_stderr {
+    stdout,stderr = capture_stdout_stderr {
       get '/'+path, {
         exercise_name:'unknown',
         language_name:language_name
       }
     }
-    # puts _stdout
-    # puts '~~~~~~~~~'
+    verify_exception_info_on(stdout, 'http_service')
     assert_equal '', stderr, :stderr_is_empty
     assert status?(500), status
   end
@@ -59,14 +58,13 @@ class RequestErrorTest < TestBase
   |is 500 error
   ) do
     path = 'kata_create'
-    _stdout,stderr = capture_stdout_stderr {
+    stdout,stderr = capture_stdout_stderr {
       get '/'+path, {
         not_exercise_name:exercise_name,
         language_name:language_name
       }
     }
-    # puts _stdout
-    # puts '~~~~~~~~~'
+    verify_exception_info_on(stdout, 'message')
     assert_equal '', stderr, :stderr_is_empty
     assert status?(500), status
   end
@@ -78,15 +76,14 @@ class RequestErrorTest < TestBase
   |is 500 error
   ) do
     path = 'kata_create'
-    _stdout,stderr = capture_stdout_stderr {
+    stdout,stderr = capture_stdout_stderr {
       get '/'+path, {
         exercise_name:exercise_name,
         language_name:language_name,
         extra:'wibble'
       }
     }
-    # puts _stdout
-    # puts '~~~~~~~~~'
+    verify_exception_info_on(stdout, 'message')
     assert_equal '', stderr, :stderr_is_empty
     assert status?(500), status
   end

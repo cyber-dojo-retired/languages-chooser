@@ -69,4 +69,13 @@ class TestBase < Id58TestBase
     Rack::Utils.escape_html(text)
   end
 
+  # - - - - - - - - - - - - - - -
+
+  def verify_exception_info_on(stdout, name)
+    json = JSON.parse!(stdout)
+    assert_equal ['exception'], json.keys, stdout
+    ex = json['exception']
+    assert_equal ['request','backtrace',name].sort, ex.keys.sort, stdout
+  end
+
 end

@@ -51,12 +51,12 @@ class ResponseErrorTest < TestBase
 
   def assert_get_500(path, body)
     stub_custom_start_points_http(body)
-    _stdout,stderr = capture_stdout_stderr {
+    stdout,stderr = capture_stdout_stderr {
       get path
     }
+    verify_exception_info_on(stdout, 'http_service')
     assert status?(500), status
     assert_equal '', stderr, :stderr_is_empty
-    #stdout
   end
 
   def stub_custom_start_points_http(body)
