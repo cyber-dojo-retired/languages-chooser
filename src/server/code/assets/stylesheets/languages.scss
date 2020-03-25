@@ -17,13 +17,19 @@
   margin: { top: 10px; }
   font-size: 1.15em;
 
-  #heading
+  #languages-chooser-box
+  {
+    @include center-align();
+  }
+
+  #heading, #sub-heading
   {
     @include non-code-font();
     color: $lighter-color;
-    font-size: 70px;
-    text-align: center;
+    text-align: left;
   }
+  #heading { font-size: 60px; }
+  #sub-heading { font-size: 25px; }
 
   #display-box
   {
@@ -37,7 +43,7 @@
       overflow-x: none;
       @include edged-panel();
     }
-    #display-names   { width: 300px; max-width: 300px; }
+    #display-names   { width: 250px; max-width: 250px; }
     #display-content { width: 500px; max-width: 500px; }
     #display-content { font-size: 0.85em; }
     #display-names .display-name
