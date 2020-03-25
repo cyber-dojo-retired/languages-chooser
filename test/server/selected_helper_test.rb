@@ -14,50 +14,45 @@ class LargestTest < TestBase
 
   test '841', %w(
   |Rule 1:
-  |when there is a filename
-  |which includes the word 'test'
-  |then select it
-  ) do
-    expected = 'HikerTest.java' # eg java-junit
-    assert_equal expected, selected(make_visible_files(expected))
-  end
-
-  test '941', %w(
-  |Rule 1:new
   |when there are filenames
   |which include the word 'test'
-  |the select the one with the most content
+  |then select the one with the largest content
   ) do
     expected = 'HikerTest.java' # eg java-approval
-    visible_files = {
-      expected => { 'content' => 'import org.junit.*;...' },
-      'HikerTest.hhgttg.approved.txt' => { 'content' => '42' }
-    }
-    assert_equal expected, selected(visible_files)
+    assert_equal expected, selected(make_visible_files([
+      [ expected                       , 'import org.junit.*;...'    ],
+      [ 'HikerTest.hhgttg.approved.txt', '42'                        ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
 
   test '842', %w(
   |Rule 2:
-  |when there is a filename
-  |which includes the word 'feature'
-  |then select it
+  |when then are filenames
+  |which include the word 'feature'
+  |then select the one with the largest content
   ) do
     expected = 'hiker.feature' # eg gplusplus-cucumber
-    assert_equal expected, selected(make_visible_files(expected))
+    assert_equal expected, selected(make_visible_files([
+      [ expected         , 'x'*23 ],
+      [ 'smaller.feature', 'y'*22 ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
 
   test '843', %w(
   |Rule 3:
-  |when there is a filename
-  |which includes the word 'spec'
-  |then select it
+  |when there are filenames
+  |which include the word 'spec'
+  |then select the one with the largest content
   ) do
     expected = 'hiker_spec.rb' # eg ruby-approval
-    assert_equal expected, selected(make_visible_files(expected))
+    assert_equal expected, selected(make_visible_files([
+      [ expected      , 'x'*23 ],
+      [ 'smaller.spec', 'y'*22 ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
@@ -69,8 +64,10 @@ class LargestTest < TestBase
   |then select filename whose content includes the word 'assert'.
   ) do
     expected = 'src/lib.rs' # eg rust-test
-    content = 'assert_eq!(42, answer());'
-    assert_equal expected, selected(make_visible_files(expected,content))
+    assert_equal expected, selected(make_visible_files([
+      [ expected   , 'assert_eq!(42, answer());' ],
+      [ 'other.txt', 'your task is to....'       ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
@@ -82,8 +79,10 @@ class LargestTest < TestBase
   |then select the filename whose content includes the word 'answer'.
   ) do
     expected = 'hiker.pl' # eg prolog-plunit
-    content = 'answer(X) :- X is 6 * 9.'
-    assert_equal expected, selected(make_visible_files(expected,content))
+    assert_equal expected, selected(make_visible_files([
+        [ expected   , 'answer(X) :- X is 6 * 9.' ],
+        [ 'other.txt', 'your task is to....'      ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
@@ -95,13 +94,18 @@ class LargestTest < TestBase
   |then select the first filename alphabetically (often cyber-dojo.sh)
   ) do
     expected = 'cyber-dojo.sh'
-    assert_equal expected, selected(make_visible_files(expected))
+    assert_equal expected, selected(make_visible_files([
+      [ expected  , 'blah blah'           ],
+      [ 'data.txt', '...data.txt content' ],
+      [ 'makefile', '....'                ]
+    ]))
   end
 
   # - - - - - - - - - - - - - - - - - - -
 
   test '847', %w(
-  these rules cover all current languages-start-points manifests
+  |Rule7:
+  |these rules cover all current languages-start-points manifests
   ) do
     manifests.each do |display_name,manifest|
       refute_nil selected(manifest['visible_files']), display_name
@@ -110,11 +114,12 @@ class LargestTest < TestBase
 
   private
 
-  def make_visible_files(filename, content='y*42')
-    {
-      'readme.txt' => { 'content' => 'a'*23 },
-      filename => { 'content' => content }
-    }
+  def make_visible_files(data)
+    visible_files = {}
+    data.each do |filename,content|
+      visible_files[filename] = { 'content' => content }
+    end
+    visible_files
   end
 
 end
