@@ -24,9 +24,10 @@ class CreateTest < TestBase
 
   test 'w9A', %w(
   |GET /group_create?exercise_names=X&languages_names[]=Y
-  |where X is valid and Y is valid
+  |where X is the name of an exercises-start-point
+  |where Y is the name of a languages-start-point
   |redirects to /kata/group/:id page
-  |and a group with :id exists
+  |and a group-exercise with :id exists
   ) do
     get '/group_create', {
       exercise_name:exercise_name,
@@ -40,6 +41,7 @@ class CreateTest < TestBase
     assert group_exists?(id), "id:#{id}:" # eg xCSKgZ
     manifest = group_manifest(id)
     assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -48,9 +50,10 @@ class CreateTest < TestBase
 
   test 'w9B', %w(
   |GET /kata_create?exercise_name=X&language_name=Y
-  |where X is valid and Y is valid  
+  |where X is the name of an exercises-start-point
+  |where Y is the name of a languages-start-point
   |redirects to /kata/edit/:id page
-  |and a kata with :id exists
+  |and an individual-exercise with :id exists
   ) do
     get '/kata_create', {
       exercise_name:exercise_name,
@@ -64,6 +67,7 @@ class CreateTest < TestBase
     assert kata_exists?(id), "id:#{id}:" # eg H3Nqu2
     manifest = kata_manifest(id)
     assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], manifest    
   end
 
   private

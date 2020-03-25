@@ -10,10 +10,10 @@ class ChooseTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test '18w', %w(
-  |GET/group_choose
-  |offers all languages_names
-  |ready to create a group
-  |when languages_start_points is online
+  |given the languages-start-points service is ready
+  |when I request GET/group_choose
+  |then the resulting page offers the names of all languages-start-points
+  |ready for me to select one and create a group-exercise
   ) do
     get '/group_choose'
     assert status?(200), status
@@ -28,10 +28,10 @@ class ChooseTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test '19w', %w(
-  |GET/kata_choose
-  |offers all languages_names
-  |ready to create a kata
-  |when languages_start_points is online
+  |given the languages-start-points service is ready
+  |when I request GET/kata_choose
+  |then the resulting page offers the names of all languages-start-points
+  |ready for me to select one and create an individual exercise
   ) do
     get '/kata_choose'
     assert status?(200), status

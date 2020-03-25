@@ -1,31 +1,31 @@
-Run options: --seed 59659
+Run options: --seed 5822
 
 # Running:
 
-........................
+.........................
 
-Finished in 0.474587s, 50.5703 runs/s, 259.1727 assertions/s.
+Finished in 0.349793s, 71.4708 runs/s, 363.0719 assertions/s.
 
-24 runs, 123 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 13096 / 24357 LOC (53.77%) covered.
+25 runs, 127 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 13104 / 24365 LOC (53.78%) covered.
 
 Slowest 5 tests are...
-0.2014 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0295 - q7DJe5:request_error_test.rb:38:|GET/group_create with unknown exercise_name |is 500 error
-0.0257 - a7318w:choose_test.rb:12:|GET/group_choose |offers all languages_names |ready to create a group |when languages_start_points is online
-0.0241 - d5ae5K:alive_test.rb:12:its alive!                                      
-0.0230 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all languages_names |ready to create a kata |when languages_start_points is online
-0.0210 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is valid and Y is valid |redirects to /kata/group/:id page |and a group with :id exists
+0.0910 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0335 - a8615D:ready_test.rb:13:ready when languages-start-points and creator are both ready
+0.0271 - a7318w:choose_test.rb:12:|given the languages-start-points service is ready |when I request GET/group_choose |then the resulting page offers the names of all languages-start-points |ready for me to select one and create a group-exercise
+0.0244 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is the name of an exercises-start-point |where Y is the name of a languages-start-point |redirects to /kata/group/:id page |and a group-exercise with :id exists
+0.0231 - q7DJe5:request_error_test.rb:38:|GET/group_create with unknown exercise_name |is 500 error
+0.0219 - a7319w:choose_test.rb:30:|given the languages-start-points service is ready |when I request GET/kata_choose |then the resulting page offers the names of all languages-start-points |ready for me to select one and create an individual exercise
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.47   <=     2 | [32m true [0m
-                    tests |      24   >=     1 | [32m true [0m
+        duration(test)[s] |    0.35   <=     2 | [32m true [0m
+                    tests |      25   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.96   >=   0.9 | [32m true [0m
-      hits(tested/tester) |    3.53   >=   3.5 | [32m true [0m
+     lines(tester/tested) |    1.00   >=   0.9 | [32m true [0m
+      hits(tested/tester) |    3.65   >=   3.6 | [32m true [0m
 
