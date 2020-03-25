@@ -1,45 +1,33 @@
-Run options: --seed 44506
+Run options: --seed 62519
 
 # Running:
 
-./usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+.../usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
-......
+....
 
-Finished in 8.666521s, 0.8077 runs/s, 1.8462 assertions/s.
+Finished in 7.976000s, 0.8776 runs/s, 2.5075 assertions/s.
 
-7 runs, 16 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 18282 / 39674 LOC (46.08%) covered.
+7 runs, 20 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 18290 / 39682 LOC (46.09%) covered.
 
 Slowest 5 tests are...
-6.6778 - xRae5E:create_test.rb:35:|PATH /custom-chooser/kata_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
-0.6922 - xRae5D:create_test.rb:16:|PATH /custom-chooser/group_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
-0.4041 - xRa4C9:create_test.rb:69:|PATH /custom-chooser/kata_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/edit/:ID
-0.3639 - xRa4C8:create_test.rb:54:|PATH /custom-chooser/group_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/group/:ID
-0.0556 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0033 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+5.8289 - xRa4C9:create_test.rb:79:|PATH /languages-chooser/kata_choose |shows languages display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/edit/:ID
+0.6571 - xRae5E:create_test.rb:43:|PATH /languages-chooser/kata_choose |shows languages display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
+0.6500 - xRae5D:create_test.rb:24:|PATH /languages-chooser/group_choose |shows languages display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+0.3414 - xRa4C8:create_test.rb:62:|PATH /languages-chooser/group_choose |shows languages display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/group/:ID
+0.0508 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0012 - a8615D:ready_test.rb:13:its ready                                       
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       2   <=     2 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    8.67   <=    15 | [32m true [0m
+        duration(test)[s] |    7.98   <=    15 | [32m true [0m
                     tests |       7   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.77   >=   0.7 | [32m true [0m
-      hits(tested/tester) |    0.95   >=   0.9 | [32m true [0m
-
-
-                 failures |       0   <=     0 | [32m true [0m
-                   errors |       0   <=     0 | [32m true [0m
-                 warnings |       2   <=     2 | [32m true [0m
-                    skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    8.67   <=    15 | [32m true [0m
-                    tests |       7   >=     1 | [32m true [0m
-      coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
-      coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.77   >=   0.7 | [32m true [0m
-      hits(tested/tester) |    0.95   >=   0.9 | [32m true [0m
+     lines(tester/tested) |    0.85   >=   0.7 | [32m true [0m
+      hits(tested/tester) |    1.10   >=   0.9 | [32m true [0m
 

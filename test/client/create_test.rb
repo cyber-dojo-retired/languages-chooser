@@ -11,72 +11,84 @@ class CreateTest < TestBase
     'xRa'
   end
 
+  def exercise_name
+    'Fizz Buzz'
+  end
+
+  def language_name
+    'Java, JUnit'
+  end
+
   # - - - - - - - - - - - - - - - - -
 
   test 'e5D', %w(
-  |PATH /custom-chooser/group_choose
-  |shows custom display-names
+  |PATH /languages-chooser/group_choose
+  |shows languages display-names
   |selecting one
   |clicking [ok] button
   |redirects to /kata/group/:ID
   ) do
-    visit('/custom-chooser/group_choose')
-    display_name = 'Java Countdown, Round 1'
-    find('div.display-name', text:display_name).click
+    visit("/languages-chooser/group_choose?exercise_name=#{exercise_name}")
+    find('div.display-name', text:language_name).click
     find('button#ok').click
     assert %r"/kata/group/(?<id>.*)" =~ current_path, current_path
     assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
-    assert_equal display_name, manifest['display_name'], manifest
+    assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test 'e5E', %w(
-  |PATH /custom-chooser/kata_choose
-  |shows custom display-names
+  |PATH /languages-chooser/kata_choose
+  |shows languages display-names
   |selecting one
   |clicking [ok] button
   |redirects to /kata/edit/:ID
   ) do
-    visit('/custom-chooser/kata_choose')
-    display_name = 'Java Countdown, Round 1'
-    find('div.display-name', text:display_name).click
+    visit("/languages-chooser/kata_choose?exercise_name=#{exercise_name}")
+    find('div.display-name', text:language_name).click
     find('button#ok').click
     assert %r"/kata/edit/(?<id>.*)" =~ current_path, current_path
     assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
-    assert_equal display_name, manifest['display_name'], manifest
+    assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test '4C8', %w(
-    |PATH /custom-chooser/group_choose
-    |shows custom display-names
+    |PATH /languages-chooser/group_choose
+    |shows languages display-names
     |one is already selected at random
     |so clicking [ok] button
     |redirects to /kata/group/:ID
   ) do
-    visit('/custom-chooser/group_choose')
+    visit("/languages-chooser/group_choose?exercise_name=#{exercise_name}")
     find('button#ok').click
     assert %r"/kata/group/(?<id>.*)" =~ current_path, current_path
     assert group_exists?(id), "id:#{id}:"
+    manifest = group_manifest(id)
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test '4C9', %w(
-    |PATH /custom-chooser/kata_choose
-    |shows custom display-names
+    |PATH /languages-chooser/kata_choose
+    |shows languages display-names
     |one is already selected at random
     |so clicking [ok] button
     |redirects to /kata/edit/:ID
   ) do
-    visit('/custom-chooser/kata_choose')
+    visit("/languages-chooser/kata_choose?exercise_name=#{exercise_name}")
     find('button#ok').click
     assert %r"/kata/edit/(?<id>.*)" =~ current_path, current_path
     assert kata_exists?(id), "id:#{id}:"
+    manifest = kata_manifest(id)
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   private
