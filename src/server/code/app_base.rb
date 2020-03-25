@@ -21,8 +21,8 @@ class AppBase < Sinatra::Base
   # append asset paths
   environment.append_path('code/assets/stylesheets')
   # compress assets
-  # Cause a notable delay in response times so for now off.
-  #environment.css_compressor = :scss
+  # TODO: Cause a notable delay in response times so for now off.
+  # environment.css_compressor = :scss
 
   get '/assets/app.css', provides:[:css] do
     respond_to do |format|

@@ -49,8 +49,8 @@ class ResponseErrorTest < TestBase
 
   private
 
-  def assert_get_500(path, stub)
-    stub_custom_start_points_http(stub)
+  def assert_get_500(path, body)
+    stub_custom_start_points_http(body)
     _stdout,stderr = capture_stdout_stderr {
       get path
     }
