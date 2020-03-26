@@ -88,4 +88,32 @@ class RequestErrorTest < TestBase
     assert status?(500), status
   end
 
+  # - - - - - - - - - - - - - - - - -
+
+  test 'Qe4', %w(
+  |POST with non-JSON in request.body
+  |is 500 error
+  ) do
+    stdout,stderr = capture_stdout_stderr {
+      post '/kata_create', 'xxx', JSON_REQUEST_HEADERS
+    }
+    verify_exception_info_on(stdout, 'message')
+    assert_equal '', stderr, :stderr_is_empty
+    assert status?(500), status
+  end
+
+  # - - - - - - - - - - - - - - - - -
+
+  test 'Qe5', %w(
+  |POST with non-JSON-Hash in request.body
+  |is 500 error
+  ) do
+    stdout,stderr = capture_stdout_stderr {
+      post '/kata_create', '[]', JSON_REQUEST_HEADERS
+    }
+    verify_exception_info_on(stdout, 'message')    
+    assert_equal '', stderr, :stderr_is_empty
+    assert status?(500), status
+  end
+
 end
