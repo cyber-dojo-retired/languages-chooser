@@ -111,7 +111,7 @@ class RequestErrorTest < TestBase
     stdout,stderr = capture_stdout_stderr {
       post '/kata_create', '[]', JSON_REQUEST_HEADERS
     }
-    verify_exception_info_on(stdout, 'message')    
+    verify_exception_info_on(stdout, 'message')
     assert_equal '', stderr, :stderr_is_empty
     assert status?(500), status
   end
