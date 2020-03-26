@@ -17,7 +17,7 @@ api_demo()
   if [ "${1:-}" == '--no-browser' ]; then
     containers_down
   else
-    open "http://${IP_ADDRESS}:80/languages-chooser/group_choose?exercise_name=Fizz Buzz"
+    open "http://${IP_ADDRESS}:80/languages-chooser/group_choose?exercise_name=$(exercise_name)"
   fi
 }
 
@@ -25,28 +25,28 @@ api_demo()
 demo()
 {
   echo API
-  curl_json_body_200 GET  alive
-  curl_json_body_200 GET  ready
-  curl_json_body_200 GET  sha
+  curl_json_body_200  GET  alive
+  curl_json_body_200  GET  ready
+  curl_json_body_200  GET  sha
   echo
-  curl_200           GET  assets/app.css 'Content-Type: text/css'
+  curl_200            GET  assets/app.css 'Content-Type: text/css'
   echo
-  curl_200           GET  group_choose  exercise
-  #curl_params_302    GET  group_create "$(params_display_names)"
-  #curl_json_body_200 POST group_create "$(json_display_names)"
+  curl_200            GET  group_choose  exercise "$(url_params)"
+  #curl_url_params_302 GET  group_create "$(url_params)"
+  #curl_json_body_200  POST group_create "$(json_body)"
   echo
-  curl_200           GET  group_choose   exercise
-  #curl_params_302    GET  kata_create  "$(params_display_name)"
-  #curl_json_body_200 POST kata_create  "$(json_display_name)"
+  curl_200            GET  kata_choose   exercise "$(url_params)"
+  #curl_url_params_302 GET  kata_create  "$(url_params)"
+  #curl_json_body_200  POST kata_create  "$(json_body)"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
   local -r log=/tmp/languages-chooser.log
-  local -r type="${1}"   # eg GET|POST
-  local -r route="${2}"  # eg group_create
-  local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
+  local -r type="${1}"    # eg GET|POST
+  local -r route="${2}"   # eg group_create
+  local -r json="${3:-}"  # eg '{"exercise_name":"Fizz Buzz"}'
   curl  \
     --data "${json}" \
     --fail \
@@ -64,14 +64,14 @@ curl_json_body_200()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-curl_params_302()
+curl_url_params_302()
 {
   local -r log=/tmp/languages-chooser.log
-  local -r type="${1}"     # eg GET|POST
-  local -r route="${2}"    # eg kata_create
-  local -r params="${3:-}" # eg "display_name=Java Countdown, Round 1"
+  local -r type="${1}"       # eg GET
+  local -r route="${2}"      # eg group_create
+  local -r url_params="${3}" # eg "exercise_name=Fizz Buzz"
   curl  \
-    --data-urlencode "${params}" \
+    --data-urlencode "${url_params}" \
     --fail \
     --request "${type}" \
     --silent \
@@ -79,8 +79,8 @@ curl_params_302()
       "http://${IP_ADDRESS}:$(port)/${route}" \
       > "${log}" 2>&1
 
-  grep --quiet 302 "${log}"                 # eg HTTP/1.1 302 Moved Temporarily
-  local -r result=$(grep Location "${log}") # Location: http://192.168.99.100:4536/kata/edit/5B65RC
+  grep --quiet 302 "${log}" # eg HTTP/1.1 302 Moved Temporarily
+  local -r result=$(grep Location "${log}" | head -n 1)
   echo "$(tab)${type} ${route} => 302 ${result}"
 }
 
@@ -88,10 +88,12 @@ curl_params_302()
 curl_200()
 {
   local -r log=/tmp/languages-chooser.log
-  local -r type="${1}"    # eg GET|POST
-  local -r route="${2}"   # eg index_kata
-  local -r pattern="${3}" # eg session
+  local -r type="${1}"         # eg GET
+  local -r route="${2}"        # eg group_choose
+  local -r pattern="${3}"      # eg exercise
+  local -r url_params="${4:-}" # eg "exercise_name=Fizz Buzz"
   curl  \
+    --data-urlencode "${url_params}" \
     --fail \
     --request "${type}" \
     --silent \
@@ -106,13 +108,11 @@ curl_200()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { echo -n "${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}"; }
-json_display_names()   { echo -n "{\"display_names\":[\"$(display_name)\"]}"; }
-params_display_names() { params display_names[] "$(display_name)"; }
-json_display_name()    { json   display_name "$(display_name)"; }
-params_display_name()  { params display_name "$(display_name)"; }
+json_body() { json exercise_name "$(exercise_name)"; }
+url_params() { url_param exercise_name "$(exercise_name)"; }
 json() { echo -n "{\"${1}\":\"${2}\"}"; }
-params() { echo -n "${1}=${2}"; }
-display_name() { echo -n 'C (gcc), assert'; }
+url_param() { echo -n "${1}=${2}"; }
+exercise_name() { echo -n 'Fizz Buzz'; }
 tab() { printf '\t'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
