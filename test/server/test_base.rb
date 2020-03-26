@@ -34,9 +34,11 @@ class TestBase < Id58TestBase
 
   # - - - - - - - - - - - - - - -
 
+  JSON_CONTENT = 'application/json'
+
   JSON_REQUEST_HEADERS = {
-    'CONTENT_TYPE' => 'application/json', # request sent by client
-    'HTTP_ACCEPT' => 'application/json'   # response received by client
+    'CONTENT_TYPE' => JSON_CONTENT, # request sent by client
+    'HTTP_ACCEPT'  => JSON_CONTENT  # response received by client
   }
 
   # - - - - - - - - - - - - - - -
@@ -53,6 +55,10 @@ class TestBase < Id58TestBase
 
   def html_content?
     content_type === 'text/html;charset=utf-8'
+  end
+
+  def json_content?
+    content_type === JSON_CONTENT
   end
 
   def css_content?

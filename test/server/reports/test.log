@@ -1,31 +1,31 @@
-Run options: --seed 43610
+Run options: --seed 35674
 
 # Running:
 
-.........................
+...........................
 
-Finished in 0.388863s, 64.2901 runs/s, 367.7392 assertions/s.
+Finished in 0.399705s, 67.5499 runs/s, 387.7864 assertions/s.
 
-25 runs, 143 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 13115 / 24376 LOC (53.8%) covered.
+27 runs, 155 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 13169 / 24423 LOC (53.92%) covered.
 
 Slowest 5 tests are...
-0.0951 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0360 - q7DBq6:request_error_test.rb:56:|GET/group_create with unknown parameter |is 500 error
-0.0263 - a7318w:choose_test.rb:12:|given the languages-start-points service is ready |when I request GET/group_choose |then the resulting page offers the names of all languages-start-points |ready for me to select one and create a group-exercise
-0.0243 - a8615D:ready_test.rb:13:ready when languages-start-points and creator are both ready
-0.0239 - a7319w:choose_test.rb:30:|given the languages-start-points service is ready |when I request GET/kata_choose |then the resulting page offers the names of all languages-start-points |ready for me to select one and create an individual exercise
-0.0232 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is the name of an exercises-start-point |where Y is the name of a languages-start-point |redirects to /kata/group/:id page |and a group-exercise with :id exists
+0.0813 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0438 - v42w9A:create_test.rb:25:|GET /group_create?exercise_names=X&languages_names[]=Y |where X is the name of an exercises-start-point |where Y is the name of a languages-start-point |redirects to /kata/group/:id page |and a group-exercise with :id exists
+0.0246 - v42w9C:create_test.rb:49:|POST /group_create |with body containing exercise-name and languages_names |returns json payload |with {"group_create":"ID"} |where a group with ID exists
+0.0246 - a7318w:choose_test.rb:12:|given the languages-start-points service is ready |when I request GET/group_choose |then the resulting page offers the names of all languages-start-points |ready for me to select one and create a group-exercise
+0.0234 - q7DJe4:request_error_test.rb:20:|GET/kata_create with unknown exercise_name |is 500 error
+0.0206 - v42w9B:create_test.rb:74:|GET /kata_create?exercise_name=X&language_name=Y |where X is the name of an exercises-start-point |where Y is the name of a languages-start-point |redirects to /kata/edit/:id page |and an individual-exercise with :id exists
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.39   <=     2 | [32m true [0m
-                    tests |      25   >=     1 | [32m true [0m
-      coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
+        duration(test)[s] |     0.4   <=     2 | [32m true [0m
+                    tests |      27   >=     1 | [32m true [0m
+      coverage(tested)[%] |    99.2   >=   100 | [31m false [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    1.02   >=   1.0 | [32m true [0m
-      hits(tested/tester) |    3.72   >=   3.7 | [32m true [0m
+     lines(tester/tested) |    1.04   >=   1.0 | [32m true [0m
+      hits(tested/tester) |    3.85   >=   3.7 | [32m true [0m
 

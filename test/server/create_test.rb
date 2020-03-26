@@ -45,6 +45,29 @@ class CreateTest < TestBase
   end
 
   # - - - - - - - - - - - - - - - - -
+
+  test 'w9C', %w(
+  |POST /group_create
+  |with body containing exercise-name and languages_names
+  |returns json payload
+  |with {"group_create":"ID"}
+  |where a group with ID exists
+  ) do
+    json_post path='group_create', {
+      exercise_name:exercise_name,
+      languages_names:[language_name]
+    }
+    assert status?(200), status
+    assert json_content?, content_type
+    assert_equal [path], json_response.keys.sort, :keys
+    id = json_response[path] # eg xCSKgZ
+    assert group_exists?(id), "id:#{id}:"
+    manifest = group_manifest(id)
+    assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], :exercise
+  end
+
+  # - - - - - - - - - - - - - - - - -
   # kata_create
   # - - - - - - - - - - - - - - - - -
 
@@ -67,7 +90,30 @@ class CreateTest < TestBase
     assert kata_exists?(id), "id:#{id}:" # eg H3Nqu2
     manifest = kata_manifest(id)
     assert_equal language_name, manifest['display_name'], manifest
-    assert_equal exercise_name, manifest['exercise'], manifest    
+    assert_equal exercise_name, manifest['exercise'], manifest
+  end
+
+  # - - - - - - - - - - - - - - - - -
+
+  test 'w9D', %w(
+  |POST /kata_create
+  |with body containing exercise-name and languages_names
+  |returns json payload
+  |with {"kata_create":"ID"}
+  |where a kata with ID exists
+  ) do
+    json_post path='kata_create', {
+      exercise_name:exercise_name,
+      language_name:language_name
+    }
+    assert status?(200), status
+    assert json_content?, content_type
+    assert_equal [path], json_response.keys.sort, :keys
+    id = json_response[path] # eg H3Nqu2
+    assert kata_exists?(id), "id:#{id}:"
+    manifest = kata_manifest(id)
+    assert_equal language_name, manifest['display_name'], manifest
+    assert_equal exercise_name, manifest['exercise'], manifest
   end
 
   private
@@ -100,6 +146,18 @@ class CreateTest < TestBase
 
   def http
     ExternalHttp.new
+  end
+
+  # - - - - - - - - - - - - - - - - - - - -
+
+  def json_post(path, data)
+    post '/'+path, data.to_json, JSON_REQUEST_HEADERS
+  end
+
+  # - - - - - - - - - - - - - - - - - - - -
+
+  def json_response
+    @json_response ||= JSON.parse(last_response.body)
   end
 
 end
