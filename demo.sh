@@ -31,10 +31,10 @@ demo()
   echo
   curl_200            assets/app.css 'Content-Type: text/css'
   echo
-  curl_200            group_choose  exercise "$(url_exercise_param)"
+  curl_200            group_choose our "$(url_exercise_param)"
   curl_url_params_302 group_create "$(url_exercise_param)" "$(url_languages_param)"
   echo
-  curl_200            kata_choose   exercise "$(url_exercise_param)"
+  curl_200            kata_choose  my "$(url_exercise_param)"
   curl_url_params_302 kata_create  "$(url_exercise_param)" "$(url_language_param)"
 }
 
