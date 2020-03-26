@@ -43,7 +43,6 @@ demo()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
-  local -r log=/tmp/languages-chooser.log
   local -r type="${1}"    # eg GET|POST
   local -r route="${2}"   # eg group_create
   local -r json="${3:-}"  # eg '{"exercise_name":"Fizz Buzz"}'
@@ -56,17 +55,16 @@ curl_json_body_200()
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
+      > "$(log_filename)" 2>&1
 
-  grep --quiet 200 "${log}"             # eg HTTP/1.1 200 OK
-  local -r result=$(tail -n 1 "${log}") # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
+  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
+  local -r result=$(tail -n 1 "$(log_filename)")
   echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_url_params_302()
 {
-  local -r log=/tmp/languages-chooser.log
   local -r type="${1}"       # eg GET
   local -r route="${2}"      # eg group_create
   local -r url_params="${3}" # eg "exercise_name=Fizz Buzz"
@@ -77,17 +75,16 @@ curl_url_params_302()
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
+      > "$(log_filename)" 2>&1
 
-  grep --quiet 302 "${log}" # eg HTTP/1.1 302 Moved Temporarily
-  local -r result=$(grep Location "${log}" | head -n 1)
+  grep --quiet 302 "$(log_filename)" # eg HTTP/1.1 302 Moved Temporarily
+  local -r result=$(grep Location "$(log_filename)" | head -n 1)
   echo "$(tab)${type} ${route} => 302 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_200()
 {
-  local -r log=/tmp/languages-chooser.log
   local -r type="${1}"         # eg GET
   local -r route="${2}"        # eg group_choose
   local -r pattern="${3}"      # eg exercise
@@ -99,10 +96,10 @@ curl_200()
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
+      > "$(log_filename)" 2>&1
 
-  grep --quiet 200 "${log}" # eg HTTP/1.1 200 OK
-  local -r result=$(grep "${pattern}" "${log}" | head -n 1)
+  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
+  local -r result=$(grep "${pattern}" "$(log_filename)" | head -n 1)
   echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
@@ -114,6 +111,7 @@ json() { echo -n "{\"${1}\":\"${2}\"}"; }
 url_param() { echo -n "${1}=${2}"; }
 exercise_name() { echo -n 'Fizz Buzz'; }
 tab() { printf '\t'; }
+log_filename() { echo -n /tmp/languages-chooser.log ; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 api_demo "$@"
