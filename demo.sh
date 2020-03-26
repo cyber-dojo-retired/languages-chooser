@@ -33,11 +33,11 @@ demo()
   echo
   curl_200            GET  group_choose  exercise "$(url_exercise_param)"
   curl_url_params_302 GET  group_create "$(url_exercise_param)" "$(url_languages_param)"
-  #curl_json_body_200  POST group_create "{$(json_exercise_param),$(json_languages_param)}"
+  curl_json_body_200  POST group_create "{$(json_exercise_param),$(json_languages_param)}"
   echo
   curl_200            GET  kata_choose   exercise "$(url_exercise_param)"
   curl_url_params_302 GET  kata_create  "$(url_exercise_param)" "$(url_language_param)"
-  #curl_json_body_200  POST kata_create  "{$(json_exercise_param)&$(json_language_param)}"
+  curl_json_body_200  POST kata_create  "{$(json_exercise_param),$(json_language_param)}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -67,8 +67,8 @@ curl_url_params_302()
 {
   local -r type="${1}"           # eg GET
   local -r route="${2}"          # eg group_create
-  local -r exercise_param="${3}" # eg "exercise_name=Fizz Buzz"
-  local -r language_param="${4}" # eg "languages_names[]=Java, JUnit"
+  local -r exercise_param="${3}" # eg "exercise_name":"Fizz Buzz"
+  local -r language_param="${4}" # eg "languages_names":["Java, JUnit"]
   curl  \
     --data-urlencode "${exercise_param}" \
     --data-urlencode "${language_param}" \
@@ -108,11 +108,11 @@ curl_200()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { echo -n "${CYBER_DOJO_LANGUAGES_CHOOSER_PORT}"; }
 
-json_body() { json exercise_name "$(exercise_name)"; }
-json() { echo -n "{\"${1}\":\"${2}\"}"; }
+json_exercise_param()  { json_param exercise_name "$(quoted "$(exercise_name)")"; }
+json_languages_param() { json_param languages_names ["$(quoted "$(language_name)")"]; }
+json_language_param()  { json_param language_name "$(quoted "$(language_name)")"; }
+json_param() { echo -n "$(quoted "${1}"):${2}"; }
 
-#url_params() { echo "$(url_exercise_param)&$(url_languages_param)"; }
-#url_param() { url_exercise_param; }
 url_exercise_param()  { url_param exercise_name "$(exercise_name)"; }
 url_languages_param() { url_param languages_names[] "$(language_name)"; }
 url_language_param()  { url_param language_name "$(language_name)"; }
@@ -121,6 +121,7 @@ url_param() { echo -n "${1}=${2}"; }
 exercise_name() { echo -n 'Fizz Buzz'; }
 language_name() { echo -n 'Java, JUnit'; }
 
+quoted() { echo -n "\"${1}\""; }
 tab() { printf '\t'; }
 log_filename() { echo -n /tmp/languages-chooser.log ; }
 
