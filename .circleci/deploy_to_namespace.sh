@@ -37,7 +37,7 @@ helm upgrade \
   --set service.port=${PORT} \
   --set containers[0].livenessProbe.port=${PORT} \
   --set containers[0].readinessProbe.port=${PORT} \
-  --set-string service.annotations."prometheus\.io/port"=${PORT} \    
+  --set-string service.annotations."prometheus\.io/port"=${PORT} \
   --values .circleci/languages-chooser-values.yaml \
   ${NAMESPACE}-languages-chooser \
   praqma/cyber-dojo-service \
